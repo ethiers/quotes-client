@@ -23,6 +23,14 @@ export class QuotesComponent implements OnInit, OnDestroy {
     //   this.quotes = data;
     // });
 
+    // this.quotes = this.quotesService.getData().pipe(
+    //   tap(data => console.log('Quotes', data))
+    // );
+
+    this.getData();
+  }
+
+  getData() {
     this.quotes = this.quotesService.getData().pipe(
       tap(data => console.log('Quotes', data))
     );
@@ -42,4 +50,11 @@ export class QuotesComponent implements OnInit, OnDestroy {
     // this.subscription.unsubscribe();
   }
 
+  onDelete(id: string) {
+    console.log(id);
+    this.quotesService.deleteQuote(id).subscribe(data => {
+      this.getData();
+      console.log('Quote Deleted!');
+    });
+  }
 }

@@ -19,11 +19,23 @@ export class QuotesService {
     return this.http.get<Quote[]>(`${baseUrl}/quotes`);
   }
 
-  getQuote(id): Observable<Quote> {
+  getQuote(id: string): Observable<Quote> {
     return this.http.get<Quote>(`${baseUrl}/quotes/${id}`).pipe(
       tap((data) => {
         console.log('Quotes', data);
       })
     );
+  }
+
+  createQuote(quote: Quote): Observable<Quote> {
+      return this.http.post<Quote>(`${baseUrl}/quotes`, quote);
+  }
+
+  updateQuote(id: string, quote: Quote): Observable<Quote> {
+    return this.http.put<Quote>(`${baseUrl}/quotes/${id}`, quote);
+  }
+
+  deleteQuote(id: string) {
+    return this.http.delete(`${baseUrl}/quotes/${id}`);
   }
 }
