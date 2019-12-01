@@ -1,13 +1,13 @@
-<mat-card class="quote-card" *ngFor="let quote of [].constructor(3)">
+<mat-card class="quote-card" *ngFor="let quote of quotes | async">
   <mat-card-header>
       <div mat-card-avatar class="avatar" [ngStyle]="getRandomColor()">
-        <span>{{'Mahatha Gandhi'.split('')[0]}}</span>
+        <span>{{quote.author.split('')[0]}}</span>
       </div>
-      <mat-card-title>Mahatha Gandhi</mat-card-title>
+      <mat-card-title>{{quote.author}}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum doloribus inventore labore quasi voluptas? Aliquam animi aperiam corporis illum itaque iusto libero nam.
+      {{ quote.title }}
     </p>
   </mat-card-content>
   <mat-card-actions class="quotes-action">

@@ -1,16 +1,31 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {QuotesService} from '../quotes.service';
+import {Observable, Subscription} from 'rxjs';
+import {Quote} from './quote';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-quotes',
   templateUrl: './quotes.component.html',
   styleUrls: ['./quotes.component.scss']
 })
-export class QuotesComponent implements OnInit {
+export class QuotesComponent implements OnInit, OnDestroy {
 
-  constructor() {
+  quotes: Observable<Quote[]>;
+  // private subscription: Subscription;
+
+  constructor(private quotesService: QuotesService) {
   }
 
   ngOnInit() {
+    // this.subscription = this.quotesService.getData().subscribe((data) => {
+    //   console.log(data);
+    //   this.quotes = data;
+    // });
+
+    this.quotes = this.quotesService.getData().pipe(
+      tap(data => console.log('Quotes', data))
+    );
   }
 
   getRandomColor() {
@@ -21,6 +36,10 @@ export class QuotesComponent implements OnInit {
     }
 
     return {background: color};
+  }
+
+  ngOnDestroy(): void {
+    // this.subscription.unsubscribe();
   }
 
 }
